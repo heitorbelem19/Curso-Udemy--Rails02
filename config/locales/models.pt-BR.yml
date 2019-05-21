@@ -1,0 +1,18 @@
+'pt-BR'
+  activerecord:
+    models:
+      admin:
+        one: Administrador
+        other: Administradores
+      profile:
+        one: Perfil
+        others: Perfis
+    attributes:
+      admin:
+        email: Email
+        created_at: Criado em
+        updated_at: Atualizado em
+      profile:
+        email: Email
+        created_at: Criado em
+        updated_at: Atualizado em
