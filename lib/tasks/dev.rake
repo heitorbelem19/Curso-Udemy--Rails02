@@ -6,7 +6,8 @@ namespace :dev do
       show_spinner("Criando BD..."){ %x(rails db:create) }
       show_spinner("Migrando BD..."){ %x(rails db:migrate) }
       show_spinner("Cadastrando ADM padrão..."){ %x(rails dev:add_default_admin) }
-      show_spinner("Cadastrando USR padrão..."){ %x(rails dev:add_default_user) }      
+      show_spinner("Cadastrando ADM extra..."){ %x(rails dev:add_extra_admin) }
+      show_spinner("Cadastrando USR padrão..."){ %x(rails dev:add_default_user) }
     else
       puts 'Não está em modo desenvolvimento'
     end
@@ -19,6 +20,17 @@ namespace :dev do
       password: 123456,
       password_confirmation: 123456
     )
+  end
+
+  desc "Adiciona administradores extras"
+  task add_extra_admin: :environment do
+    10.times do |i|
+      Admin.create!(
+        email: Faker::Internet.email,
+        password: 123456,
+        password_confirmation: 123456
+      )
+    end
   end
 
   desc "Adiciona usuário padrão"
