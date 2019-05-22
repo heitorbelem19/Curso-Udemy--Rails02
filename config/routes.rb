@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admins_backoffice do
-    get 'welcome/index'
-    resources :admins, except: [:delete] 
+    get 'welcome/index' #dashboard
+    resources :admins #admnistradores
   end
   
   devise_for :admins
