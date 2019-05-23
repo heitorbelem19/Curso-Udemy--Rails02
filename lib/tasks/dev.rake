@@ -1,4 +1,5 @@
 namespace :dev do
+  DEFAULT_FILES_PATH = File.join(Rails.root, 'lib', 'tmp')
   desc "Configura o ambiente de desenvolvimento"
   task setup: :environment do
     if Rails.env.development?
@@ -8,6 +9,8 @@ namespace :dev do
       show_spinner("Cadastrando ADM padrão..."){ %x(rails dev:add_default_admin) }
       show_spinner("Cadastrando ADM extra..."){ %x(rails dev:add_extra_admin) }
       show_spinner("Cadastrando USR padrão..."){ %x(rails dev:add_default_user) }
+      show_spinner("Cadastrando assuntos padrões..."){ %x(rails dev:add_subjects) }
+      show_spinner("Cadastrando questões padrões..."){ %x(rails dev:add_questions) }
     else
       puts 'Não está em modo desenvolvimento'
     end
@@ -40,6 +43,27 @@ namespace :dev do
       password: 123456,
       password_confirmation: 123456
     )
+  end
+
+  desc "Adiciona assuntos padrões"
+  task add_subjects: :environment do
+    file_name = 'subjects.txt'
+    file_path = File.join(DEFAULT_FILES_PATH, file_name)
+    File.open(file_path, 'r').each do |line|
+      Subject.create!(description: line.strip)
+    end
+  end
+
+  desc "Adiciona perguntas e respostas"
+  task add_questions: :environment do
+    Subject.all.each do |subject|
+      rand(5..10).times do |i|
+        Question.create!(
+          description: "#{Faker::Lorem.paragraph} #{Faker::Lorem.question}",
+          subject: subject
+        )
+      end
+    end
   end
 
   private

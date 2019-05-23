@@ -38,33 +38,19 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
     end
   end
 
-<<<<<<< HEAD
   private
   
   def params_admin
     params.require(:admin).permit(:email, :password, :password_confirmation)
-=======
-
-  private
-  def verify_password
-    if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?
-      params[:admin].extract!(:password, :password_confirmation)
-    end
->>>>>>> f0ba3c4d2dd89312c3c4d2d6c3377befae0d27ae
   end
 
   def set_admin
     @admin = Admin.find(params[:id])
   end
 
-<<<<<<< HEAD
   def verify_password
     if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?
       params[:admin].extract!(:password, :password_confirmation)
     end
-=======
-  def params_admin
-    params_admin = params.require(:admin).permit(:email, :password, :password_confirmation)
->>>>>>> f0ba3c4d2dd89312c3c4d2d6c3377befae0d27ae
   end
 end
